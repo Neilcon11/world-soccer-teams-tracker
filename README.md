@@ -2,17 +2,19 @@
 
 A free, kid-friendly web app for browsing starter national soccer team profiles.
 
-The app shows each country's flag, FIFA code, FIFA ranking, captain, top goal scorer, and most recent match. It works with local demo match data by default and can optionally use the API-Football free tier for live match updates.
+The app shows each country's flag, FIFA code, FIFA ranking, captain, top three goal scorers, and most recent match. It works with local demo match data by default and can optionally use the API-Football free tier for live match updates.
 
 ## Current Stage
 
 This version adds the first feedback loop:
 
 - Thumbs-down feedback on every team card and detail page
+- A general idea box for app feedback and future feature requests
 - A correction form for ranking, captain, top scorer, goals, recent match, or other issues
 - Local saved feedback so the child can see what they reported
 - A server route at `/api/feedback` that validates and accepts correction reports
 - Source notes for the ranking update and all-time scoring data
+- Live client refresh through `/api/teams`, with API-Football used server-side when `API_FOOTBALL_KEY` is configured
 
 ## Tech Stack
 
@@ -55,7 +57,7 @@ All API-Football calls happen through the server route at `/api/team/[id]`, so t
 
 - FIFA rankings are seeded from the FIFA/Coca-Cola Men's World Ranking update published on 11 June 2026.
 - Profile details are local seed data and should continue to be reviewed as squads and captains change.
-- Feedback submissions are validated by the app and logged by the server route, but there is no database yet.
+- Feedback and idea submissions are validated by the app and logged by the server route, but there is no database yet.
 
 ## Build
 
@@ -83,7 +85,7 @@ npm run build
 ## Current Limitations
 
 - The starter list has 10 countries only.
-- Feedback is not connected to a permanent database yet.
+- Feedback and ideas are not connected to a permanent database yet.
 - Rankings, captains, and scorer totals should still be reviewed periodically.
 - Without an API key, recent matches use local demo data.
 - There is no login, payments, ads, notifications, or full country catalog yet.
