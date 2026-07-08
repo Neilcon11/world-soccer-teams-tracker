@@ -10,6 +10,11 @@ export type DataSource = {
   url: string;
 };
 
+export type GoalScorer = {
+  name: string;
+  goals: number | null;
+};
+
 export type TeamProfile = {
   id: string;
   countryName: string;
@@ -18,10 +23,7 @@ export type TeamProfile = {
   apiFootballTeamId?: number;
   fifaRanking: number | null;
   captain: string;
-  topGoalScorer: {
-    name: string;
-    goals: number | null;
-  };
+  topGoalScorers: GoalScorer[];
   lastMatchFallback: LastMatch;
   lastUpdated: string;
   rankingUpdatedAt: string;
@@ -34,8 +36,9 @@ export type TeamWithMatch = TeamProfile & {
 };
 
 export type FeedbackPayload = {
-  teamId: string;
-  teamName: string;
+  feedbackType: "correction" | "idea";
+  teamId?: string;
+  teamName?: string;
   field: string;
   correction: string;
   pagePath: string;
