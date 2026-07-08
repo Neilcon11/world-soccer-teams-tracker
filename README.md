@@ -70,3 +70,7 @@ npm run build
 - Rankings, captains, and scorer totals are local seed data and should be reviewed periodically.
 - Without an API key, recent matches use local demo data.
 - There is no login, database, payments, ads, notifications, or full country catalog yet.
+
+## Live Deployment
+
+The production app is deployed on Vercel.
