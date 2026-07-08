@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DataQualityNote } from "@/components/DataQualityNote";
+import { FeedbackButton } from "@/components/FeedbackButton";
 import { LastMatchCard } from "@/components/LastMatchCard";
 import { StatCard } from "@/components/StatCard";
 import { getTeamById, teams } from "@/data/teams";
@@ -31,11 +33,19 @@ export default async function TeamPage({ params }: TeamPageProps) {
           <div className="rounded-2xl bg-white/10 p-4"><p className="text-sm font-bold text-slate-200">Last Updated</p><p className="mt-1 text-lg font-black">{formatDateTime(team.lastUpdated)}</p></div>
         </section>
         <section className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
-          <StatCard label="FIFA Ranking" value={formatNullableNumber(team.fifaRanking)} helper="World ranking" emphasis />
+          <StatCard label="FIFA Ranking" value={formatNullableNumber(team.fifaRanking)} helper={"FIFA update: " + team.rankingUpdatedAt} emphasis />
           <StatCard label="Captain" value={team.captain} helper="Team leader" />
           <StatCard label="Top Goal Scorer" value={team.topGoalScorer.name} helper={formatGoals(team.topGoalScorer.goals)} />
         </section>
         <section className="mt-6"><LastMatchCard match={latestMatch} isUsingDemoMatchData={!liveMatch} /></section>
+        <section className="mt-6 grid gap-5 lg:grid-cols-[1fr_1fr]">
+          <DataQualityNote team={team} />
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Spot a mistake?</p>
+            <p className="mt-2 font-semibold text-slate-700">Use the thumbs-down feedback flow to suggest a correction and mark this team for review.</p>
+            <FeedbackButton team={team} />
+          </div>
+        </section>
       </div>
     </main>
   );
