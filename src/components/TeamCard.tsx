@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { TeamProfile } from "@/types/team";
 import { FeedbackButton } from "@/components/FeedbackButton";
@@ -6,9 +8,11 @@ import { formatNullableNumber } from "@/lib/formatters";
 
 type TeamCardProps = {
   team: TeamProfile;
+  isFavorite?: boolean;
+  onToggleFavorite?: (teamId: string) => void;
 };
 
-export function TeamCard({ team }: TeamCardProps) {
+export function TeamCard({ team, isFavorite = false, onToggleFavorite }: TeamCardProps) {
   return (
     <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card transition hover:-translate-y-1 hover:border-emerald-300">
       <div className="flex items-start justify-between gap-4">
@@ -17,9 +21,22 @@ export function TeamCard({ team }: TeamCardProps) {
           <h2 className="mt-3 text-2xl font-black text-night">{team.countryName}</h2>
           <p className="font-bold text-slate-500">{team.fifaCode}</p>
         </div>
-        <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-center">
-          <p className="text-xs font-black uppercase text-emerald-700">Rank</p>
-          <p className="text-3xl font-black text-pitch">{formatNullableNumber(team.fifaRanking)}</p>
+        <div className="flex flex-col items-end gap-3">
+          {onToggleFavorite ? (
+            <button
+              type="button"
+              onClick={() => onToggleFavorite(team.id)}
+              aria-pressed={isFavorite}
+              aria-label={(isFavorite ? "Remove " : "Save ") + team.countryName + " as a favourite"}
+              className={"min-h-10 rounded-xl border px-3 text-sm font-black transition " + (isFavorite ? "border-pitch bg-pitch text-white" : "border-slate-200 bg-white text-slate-700 hover:border-pitch hover:text-pitch")}
+            >
+              {isFavorite ? "Saved" : "Save"}
+            </button>
+          ) : null}
+          <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-center">
+            <p className="text-xs font-black uppercase text-emerald-700">Rank</p>
+            <p className="text-3xl font-black text-pitch">{formatNullableNumber(team.fifaRanking)}</p>
+          </div>
         </div>
       </div>
       <div className="mt-5 space-y-3 text-sm">
