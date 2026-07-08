@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { TeamProfile } from "@/types/team";
+import { FeedbackButton } from "@/components/FeedbackButton";
 import { formatGoals, formatNullableNumber } from "@/lib/formatters";
 
 type TeamCardProps = {
@@ -25,6 +26,10 @@ export function TeamCard({ team }: TeamCardProps) {
         <p><span className="font-bold text-slate-500">Top scorer: </span><span className="font-bold text-night">{team.topGoalScorer.name} - {formatGoals(team.topGoalScorer.goals)}</span></p>
         <p><span className="font-bold text-slate-500">Last game: </span><span className="font-bold text-night">{team.lastMatchFallback.score}</span></p>
       </div>
+      <p className="mt-4 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-900">
+        Verified against FIFA ranking update: {team.rankingUpdatedAt}
+      </p>
+      <FeedbackButton team={team} compact />
       <Link href={"/team/" + team.id} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-xl bg-night px-4 py-3 text-center font-black text-white transition hover:bg-pitch">View Team</Link>
     </article>
   );
