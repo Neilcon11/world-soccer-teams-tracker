@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { TeamProfile } from "@/types/team";
 import { FeedbackButton } from "@/components/FeedbackButton";
-import { formatGoals, formatNullableNumber } from "@/lib/formatters";
+import { TopScorersList } from "@/components/TopScorersList";
+import { formatNullableNumber } from "@/lib/formatters";
 
 type TeamCardProps = {
   team: TeamProfile;
@@ -23,7 +24,10 @@ export function TeamCard({ team }: TeamCardProps) {
       </div>
       <div className="mt-5 space-y-3 text-sm">
         <p><span className="font-bold text-slate-500">Captain: </span><span className="font-bold text-night">{team.captain}</span></p>
-        <p><span className="font-bold text-slate-500">Top scorer: </span><span className="font-bold text-night">{team.topGoalScorer.name} - {formatGoals(team.topGoalScorer.goals)}</span></p>
+        <div>
+          <p className="mb-2 font-bold text-slate-500">Top 3 scorers</p>
+          <TopScorersList scorers={team.topGoalScorers} compact />
+        </div>
         <p><span className="font-bold text-slate-500">Last game: </span><span className="font-bold text-night">{team.lastMatchFallback.score}</span></p>
       </div>
       <p className="mt-4 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-900">
