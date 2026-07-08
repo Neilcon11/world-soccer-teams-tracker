@@ -5,6 +5,11 @@ export type LastMatch = {
   competition: string;
 };
 
+export type DataSource = {
+  label: string;
+  url: string;
+};
+
 export type TeamProfile = {
   id: string;
   countryName: string;
@@ -19,9 +24,20 @@ export type TeamProfile = {
   };
   lastMatchFallback: LastMatch;
   lastUpdated: string;
+  rankingUpdatedAt: string;
+  sources: DataSource[];
 };
 
 export type TeamWithMatch = TeamProfile & {
   latestMatch: LastMatch;
   isUsingDemoMatchData: boolean;
+};
+
+export type FeedbackPayload = {
+  teamId: string;
+  teamName: string;
+  field: string;
+  correction: string;
+  pagePath: string;
+  createdAt: string;
 };
