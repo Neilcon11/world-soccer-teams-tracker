@@ -8,7 +8,7 @@ type FeedbackButtonProps = {
   compact?: boolean;
 };
 
-const feedbackFields = ["FIFA ranking", "Captain", "Top goal scorer", "Top scorer goals", "Most recent game", "Other"];
+const feedbackFields = ["FIFA ranking", "Captain", "Top 3 scorers", "Top scorer goals", "Most recent game", "Other"];
 
 function storageKey(teamId: string) {
   return "world-soccer-feedback-" + teamId;
@@ -32,6 +32,7 @@ export function FeedbackButton({ team, compact = false }: FeedbackButtonProps) {
     setStatus("saving");
 
     const payload: FeedbackPayload = {
+      feedbackType: "correction",
       teamId: team.id,
       teamName: team.countryName,
       field,
