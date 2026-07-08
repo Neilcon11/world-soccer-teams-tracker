@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getTeamById } from "@/data/teams";
 import type { FeedbackPayload } from "@/types/team";
 
-const allowedFields = new Set(["FIFA ranking", "Captain", "Top goal scorer", "Top scorer goals", "Most recent game", "Other", "App idea"]);
+const allowedFields = new Set(["FIFA ranking", "Captain", "Top 3 scorers", "Top scorer goals", "Most recent game", "Other", "App idea"]);
 
 export async function POST(request: Request) {
   try {
