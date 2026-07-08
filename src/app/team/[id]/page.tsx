@@ -4,9 +4,10 @@ import { DataQualityNote } from "@/components/DataQualityNote";
 import { FeedbackButton } from "@/components/FeedbackButton";
 import { LastMatchCard } from "@/components/LastMatchCard";
 import { StatCard } from "@/components/StatCard";
+import { TopScorersList } from "@/components/TopScorersList";
 import { getTeamById, teams } from "@/data/teams";
 import { getLatestMatchForTeam } from "@/lib/apiFootball";
-import { formatDateTime, formatGoals, formatNullableNumber } from "@/lib/formatters";
+import { formatDateTime, formatNullableNumber } from "@/lib/formatters";
 
 type TeamPageProps = {
   params: Promise<{ id: string }>;
@@ -35,7 +36,10 @@ export default async function TeamPage({ params }: TeamPageProps) {
         <section className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
           <StatCard label="FIFA Ranking" value={formatNullableNumber(team.fifaRanking)} helper={"FIFA update: " + team.rankingUpdatedAt} emphasis />
           <StatCard label="Captain" value={team.captain} helper="Team leader" />
-          <StatCard label="Top Goal Scorer" value={team.topGoalScorer.name} helper={formatGoals(team.topGoalScorer.goals)} />
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Top 3 Goal Scorers</p>
+            <div className="mt-3"><TopScorersList scorers={team.topGoalScorers} /></div>
+          </div>
         </section>
         <section className="mt-6"><LastMatchCard match={latestMatch} isUsingDemoMatchData={!liveMatch} /></section>
         <section className="mt-6 grid gap-5 lg:grid-cols-[1fr_1fr]">
